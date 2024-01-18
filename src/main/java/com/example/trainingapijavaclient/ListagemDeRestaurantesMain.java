@@ -4,14 +4,15 @@ import com.example.trainingapijavaclient.api.ClientApiException;
 import com.example.trainingapijavaclient.api.RestauranteClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.server.ResponseStatusException;
 
 @Slf4j
 public class ListagemDeRestaurantesMain {
     public static void main(String[] args) {
+        listarRestaurantes();
+    }
 
+    private static void listarRestaurantes() {
         try {
             RestTemplate restTemplate = new RestTemplate();
 

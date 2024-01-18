@@ -2,7 +2,9 @@ package com.example.trainingapijavaclient.api;
 
 
 
+import com.example.trainingapijavaclient.model.RestauranteModel;
 import com.example.trainingapijavaclient.model.RestauranteResumoModel;
+import com.example.trainingapijavaclient.model.input.RestauranteInput;
 import lombok.AllArgsConstructor;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestClientResponseException;
@@ -16,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 public class RestauranteClient {
 
-	private static final String RESOURCE_PATH = "/restaurantes/1000";
+	private static final String RESOURCE_PATH = "/restaurantes";
 	
 	private RestTemplate restTemplate;
 	private String url;
@@ -29,6 +31,15 @@ public class RestauranteClient {
 					.getForObject(resourceUri, RestauranteResumoModel[].class);
 
 			return  restaurantes != null ? Arrays.asList(restaurantes) : new ArrayList<RestauranteResumoModel>();
+		} catch (RestClientResponseException e) {
+			throw new ClientApiException(e.getMessage(), e);
+		}
+	}
+
+	public RestauranteModel gravar(RestauranteInput restauranteInput) {
+		try {
+			URI resourceUri = URI.create(url + RESOURCE_PATH);
+			return restTemplate.postForEntity(resourceUri, restauranteInput, RestauranteModel.class).getBody();
 		} catch (RestClientResponseException e) {
 			throw new ClientApiException(e.getMessage(), e);
 		}

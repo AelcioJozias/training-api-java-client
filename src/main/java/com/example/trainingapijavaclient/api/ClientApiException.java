@@ -43,6 +43,7 @@ public class ClientApiException extends RuntimeException {
         mapper.findAndRegisterModules();
         // fim
 
+        // ativa a configuração para ignorar propriedades que existam no json, mas não existam no objeto.
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         try {
